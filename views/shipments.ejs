@@ -1,0 +1,27 @@
+<%- layout('layouts/boilerplate') %>
+    <div class="container border" style="background-color: #F5F5DC;">
+        <h2 style="text-align: center;">Your Shipments</h2>
+        <% for (let i=0; i < shipments.length; i++) { %>
+        <% const {_id , shipmentId, sender, recipient, shipmentType}=shipments[i] %>
+        <% const {trackingId,weight, purpose}=packages[i]; %>
+        <div class="card my-4" style="width: 70%; margin-left: 150px; background-color: azure;">
+            <div class="card-header">
+                <strong>Shipment ID - </strong> <strong><%= shipmentId %></strong>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">To <%= recipient.Name %>
+                </h5>
+                <p class="card-text my-0"><strong>From</strong> <i><%= sender.City %></i> <strong>To</strong> <i><%= recipient.City %></i></p>
+                <p class="card-text my-0"><strong>Delivery Type - </strong> <%= shipmentType %></p>
+                <p class="card-text"><strong>Weight - </strong> <%= weight %></p>
+                <div class="d-flex justify-content-center">
+                    <a href="/track/<%=packages[i]._id%>" class="btn btn-primary mr-4">Track Shipment</a>
+                    <form action="/delete/<%=shipments[i]._id%>" method="POST">
+                        <button class="btn btn-danger mx-4">Cancel Shipment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% } %>
+        <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    </div>
